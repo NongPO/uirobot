@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
+import RobotPanel from './components/RobotPanel';
 
 export default function Home() {
   return (
@@ -12,12 +13,9 @@ export default function Home() {
           <Dashboard />
         </div>
         
-        {/* Right Section - Lighter Gray */}
-        <div className="w-1/2 bg-gray-700 p-8 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Right Panel</h2>
-            <p className="text-gray-300">Content area 2</p>
-          </div>
+        {/* Right Section - Robot Panel */}
+        <div className="w-1/2 bg-gray-700 overflow-auto">
+          <RobotPanel />
         </div>
       </div>
     </div>
