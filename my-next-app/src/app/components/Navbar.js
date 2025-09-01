@@ -9,10 +9,11 @@ import {
   FaNetworkWired, 
   FaBrain, 
   FaComments, 
-  FaImage
+  FaImage,
+  FaGamepad
 } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ activeView, setActiveView }) => {
   const [activeItem, setActiveItem] = useState('shapes');
 
   const navItems = [
@@ -33,19 +34,32 @@ const Navbar = () => {
       icon: FaCube, 
       color: 'bg-orange-500',
       indicator: 'bg-orange-400',
-      active: true
+      active: activeView === 'dashboard',
+      view: 'dashboard',
+      tooltip: 'Dashboard'
+    },
+    { 
+      id: 'controller', 
+      icon: FaGamepad, 
+      color: 'bg-cyan-500',
+      indicator: 'bg-cyan-400',
+      active: activeView === 'controller',
+      view: 'controller',
+      tooltip: 'Robot Controller'
     },
     { 
       id: 'pen', 
       icon: FaPen, 
       color: 'bg-yellow-500',
-      indicator: 'bg-yellow-400'
+      indicator: 'bg-yellow-400',
+      tooltip: 'Design Tools'
     },
     { 
       id: 'vision', 
       icon: FaEye, 
       color: 'bg-cyan-500',
-      indicator: 'bg-cyan-400'
+      indicator: 'bg-cyan-400',
+      tooltip: 'Vision System'
     },
     { 
       id: 'ai', 
@@ -92,7 +106,7 @@ const Navbar = () => {
         const isActive = item.active || item.isActive;
         
         return (
-          <div key={item.id} className="relative">
+          <div key={item.id} className="relative group">
             <button
               className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 ${
                 isActive 
@@ -101,10 +115,22 @@ const Navbar = () => {
                     ? `${item.color} shadow-lg`
                     : 'bg-gray-800 hover:bg-gray-700'
               }`}
-              onClick={() => setActiveItem(item.id)}
+              onClick={() => {
+                setActiveItem(item.id);
+                if (item.view && setActiveView) {
+                  setActiveView(item.view);
+                }
+              }}
             >
               <IconComponent className="text-white text-lg" />
             </button>
+            
+            {/* Tooltip */}
+            {item.tooltip && (
+              <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-50">
+                {item.tooltip}
+              </div>
+            )}
             
             {/* Status Indicator */}
             {item.indicator && (
