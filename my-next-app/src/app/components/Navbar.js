@@ -10,7 +10,11 @@ import {
   FaBrain, 
   FaComments, 
   FaImage,
-  FaGamepad
+  FaGamepad,
+  FaWrench,
+  FaChartLine,
+  FaBell,
+  FaHeartbeat
 } from 'react-icons/fa';
 
 const Navbar = ({ activeView, setActiveView }) => {
@@ -46,6 +50,42 @@ const Navbar = ({ activeView, setActiveView }) => {
       active: activeView === 'controller',
       view: 'controller',
       tooltip: 'Robot Controller'
+    },
+    { 
+      id: 'maintenance', 
+      icon: FaWrench, 
+      color: 'bg-orange-500',
+      indicator: 'bg-orange-400',
+      active: activeView === 'maintenance',
+      view: 'maintenance',
+      tooltip: 'Maintenance'
+    },
+    { 
+      id: 'analytics', 
+      icon: FaChartLine, 
+      color: 'bg-blue-500',
+      indicator: 'bg-blue-400',
+      active: activeView === 'analytics',
+      view: 'analytics',
+      tooltip: 'Analytics & Monitoring'
+    },
+    { 
+      id: 'alerts', 
+      icon: FaBell, 
+      color: 'bg-red-500',
+      indicator: 'bg-red-400',
+      active: activeView === 'alerts',
+      view: 'alerts',
+      tooltip: 'Alert System'
+    },
+    { 
+      id: 'health', 
+      icon: FaHeartbeat, 
+      color: 'bg-green-500',
+      indicator: 'bg-green-400',
+      active: activeView === 'health',
+      view: 'health',
+      tooltip: 'Health Monitoring'
     },
     { 
       id: 'pen', 

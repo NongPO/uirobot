@@ -5,6 +5,10 @@ import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import RobotPanel from './components/RobotPanel';
 import Controller from './components/Controller';
+import Maintenance from './components/Maintenance';
+import Analytics from './components/Analytics';
+import AlertSystem from './components/AlertSystem';
+import HealthMonitoring from './components/HealthMonitoring';
 import Header from './components/Header';
 
 export default function Home() {
@@ -14,6 +18,14 @@ export default function Home() {
     switch(activeView) {
       case 'controller':
         return <Controller />;
+      case 'maintenance':
+        return <Maintenance />;
+      case 'analytics':
+        return <Analytics />;
+      case 'alerts':
+        return <AlertSystem />;
+      case 'health':
+        return <HealthMonitoring />;
       case 'dashboard':
       default:
         return (
@@ -38,7 +50,7 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         <Navbar activeView={activeView} setActiveView={setActiveView} />
         {/* Main Content Area */}
-        <div className="flex-1 flex">
+        <div className="flex-1 overflow-auto">
           {renderContent()}
         </div>
       </div>

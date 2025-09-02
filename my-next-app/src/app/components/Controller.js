@@ -21,11 +21,31 @@ const Controller = () => {
 
   const [joystickPosition, setJoystickPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [robotPosition, setRobotPosition] = useState({ x: 10, y: 50 }); // Initial position in corridor
+  const [robotPosition, setRobotPosition] = useState({ x: 16, y: 90 }); // Start bottom-left inside free space
   const joystickRef = useRef(null);
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
   const lastUpdateTime = useRef(Date.now());
+
+  // Walkable area is innerBounds (white) minus obstacles (black)
+  const wall = 4; // % wall thickness
+  const innerBounds = { x0: wall, y0: wall, x1: 100 - wall, y1: 100 - wall };
+  const ROBOT_RADIUS = 1.5; // % radius buffer around robot to avoid clipping through walls
+  const inRect = (x, y, r) => x >= r.x0 && x <= r.x1 && y >= r.y0 && y <= r.y1;
+  const obstacles = [
+    // Center vertical wall segments (match UI left:48%, width:4%)
+    { x0: 48, y0: 8,  x1: 52, y1: 38 },
+    { x0: 48, y0: 62, x1: 52, y1: 92 },
+    // Center horizontal wall segments (match UI top:48%, height:4%)
+    { x0: 8,  y0: 48, x1: 38, y1: 52 },
+    { x0: 62, y0: 48, x1: 92, y1: 52 }
+  ];
+  // Inflate obstacles by robot radius, and shrink inner bounds by radius
+  const inflateRect = (r, inflate) => ({ x0: r.x0 - inflate, y0: r.y0 - inflate, x1: r.x1 + inflate, y1: r.y1 + inflate });
+  const deflateRect = (r, deflate) => ({ x0: r.x0 + deflate, y0: r.y0 + deflate, x1: r.x1 - deflate, y1: r.y1 - deflate });
+  const innerBoundsSafe = deflateRect(innerBounds, ROBOT_RADIUS);
+  const inflatedObstacles = obstacles.map((r) => inflateRect(r, ROBOT_RADIUS));
+  const isWalkable = (x, y) => inRect(x, y, innerBoundsSafe) && !inflatedObstacles.some((r) => inRect(x, y, r));
 
   // Joystick Control Functions
   const handleJoystickMove = (e) => {
@@ -80,11 +100,35 @@ const Controller = () => {
           const baseSpeed = 0.02; // Base movement speed
           const speedMultiplier = normalizedDistance * 1.5; // Speed based on joystick position
           const moveSpeed = baseSpeed * speedMultiplier * (deltaTime / 16); // Normalize for 60fps
-          
-          const newX = Math.max(5, Math.min(95, prev.x + Math.cos(angle) * moveSpeed * 100));
-          const newY = Math.max(5, Math.min(95, prev.y + Math.sin(angle) * moveSpeed * 100));
-          
-          return { x: newX, y: newY };
+
+          // Proposed delta in percent space
+          const dx = Math.cos(angle) * moveSpeed * 100;
+          const dy = Math.sin(angle) * moveSpeed * 100;
+
+          // Step in small increments to prevent tunneling through obstacles
+          const maxStep = 0.8; // % per substep
+          const steps = Math.max(1, Math.min(15, Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / maxStep)));
+          let nextX = prev.x;
+          let nextY = prev.y;
+          for (let i = 1; i <= steps; i++) {
+            const tx = prev.x + (dx * i) / steps;
+            const ty = prev.y + (dy * i) / steps;
+            // Try full move
+            if (isWalkable(tx, ty)) {
+              nextX = tx; nextY = ty; continue;
+            }
+            // Try slide X
+            if (isWalkable(tx, nextY)) { nextX = tx; continue; }
+            // Try slide Y
+            if (isWalkable(nextX, ty)) { nextY = ty; continue; }
+            // Blocked at this substep -> stop stepping further
+            break;
+          }
+
+          // Clamp to safe inner bounds (already deflated by radius)
+          nextX = Math.max(innerBoundsSafe.x0, Math.min(innerBoundsSafe.x1, nextX));
+          nextY = Math.max(innerBoundsSafe.y0, Math.min(innerBoundsSafe.y1, nextY));
+          return { x: nextX, y: nextY };
         });
       }
     });
@@ -140,7 +184,7 @@ const Controller = () => {
   }, []);
 
   return (
-    <div className="h-full w-full flex bg-slate-600">
+    <div className="h-full w-full flex bg-slate-600 min-h-0 overflow-hidden">
       {/* Left Panel - Controls */}
       <div className="w-96 bg-slate-800 border-r border-slate-600 flex flex-col">
         {/* Header */}
@@ -260,7 +304,7 @@ const Controller = () => {
       </div>
 
       {/* Right Panel - Map */}
-      <div className="flex-1 bg-slate-800 flex flex-col">
+  <div className="flex-1 bg-slate-800 flex flex-col min-w-0 min-h-0">
         {/* Map Header */}
         <div className="bg-slate-900 p-6 border-b border-slate-600">
           <div className="flex items-center justify-between">
@@ -281,58 +325,31 @@ const Controller = () => {
         </div>
 
         {/* Map Container */}
-        <div className="flex-1 p-6">
-          <div className="h-full relative bg-slate-900 rounded-lg overflow-hidden border-2 border-slate-600">
-            
-            {/* Multi-Room Layout */}
-            {/* Main Corridor - Horizontal */}
-            <div className="absolute top-1/2 left-0 right-0 h-16 bg-white transform -translate-y-1/2 border-y-2 border-slate-400"></div>
-            
-            {/* Room 1 - Top Left */}
-            <div className="absolute top-4 left-4 w-32 h-24 bg-blue-100 border-2 border-blue-300 rounded-lg">
-              <div className="absolute bottom-0 left-1/2 w-8 h-4 bg-white transform -translate-x-1/2 translate-y-1"></div>
-              <div className="p-2">
-                <div className="text-xs text-blue-600 font-medium">Room A</div>
-                <div className="text-xs text-blue-500">Conference</div>
-              </div>
+        <div className="flex-1 p-6 min-h-0">
+          <div className="h-full relative bg-white rounded-lg overflow-hidden border-8 border-black">
+            {/* Room walls (black). Doors are gaps between segments */}
+            {/* Center vertical wall with door gap at middle */}
+            <div className="absolute bg-black" style={{ left: '48%', width: '4%', top: '8%', height: '30%' }}></div>
+            <div className="absolute bg-black" style={{ left: '48%', width: '4%', top: '62%', height: '30%' }}></div>
+            {/* Center horizontal wall with door gap at center */}
+            <div className="absolute bg-black" style={{ top: '48%', height: '4%', left: '8%', width: '30%' }}></div>
+            <div className="absolute bg-black" style={{ top: '48%', height: '4%', left: '62%', width: '30%' }}></div>
+
+            {/* Optional room labels */}
+            <div className="absolute text-[10px] md:text-xs text-gray-700" style={{ top: '14%', left: '14%' }}>Room A</div>
+            <div className="absolute text-[10px] md:text-xs text-gray-700" style={{ top: '14%', right: '14%' }}>Room B</div>
+            <div className="absolute text-[10px] md:text-xs text-gray-700" style={{ bottom: '14%', left: '14%' }}>Room C</div>
+            <div className="absolute text-[10px] md:text-xs text-gray-700" style={{ bottom: '14%', right: '14%' }}>Room D</div>
+
+            {/* Optional grid */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+              {[...Array(9)].map((_, i) => (
+                <div key={`v-${i}`} className="absolute h-full w-px bg-gray-400" style={{ left: `${(i + 1) * 10}%` }}></div>
+              ))}
+              {[...Array(9)].map((_, i) => (
+                <div key={`h-${i}`} className="absolute w-full h-px bg-gray-400" style={{ top: `${(i + 1) * 10}%` }}></div>
+              ))}
             </div>
-            
-            {/* Room 2 - Top Right */}
-            <div className="absolute top-4 right-4 w-32 h-24 bg-green-100 border-2 border-green-300 rounded-lg">
-              <div className="absolute bottom-0 left-1/2 w-8 h-4 bg-white transform -translate-x-1/2 translate-y-1"></div>
-              <div className="p-2">
-                <div className="text-xs text-green-600 font-medium">Room B</div>
-                <div className="text-xs text-green-500">Office</div>
-              </div>
-            </div>
-            
-            {/* Room 3 - Bottom Left */}
-            <div className="absolute bottom-4 left-4 w-32 h-24 bg-purple-100 border-2 border-purple-300 rounded-lg">
-              <div className="absolute top-0 left-1/2 w-8 h-4 bg-white transform -translate-x-1/2 -translate-y-1"></div>
-              <div className="p-2">
-                <div className="text-xs text-purple-600 font-medium">Room C</div>
-                <div className="text-xs text-purple-500">Kitchen</div>
-              </div>
-            </div>
-            
-            {/* Room 4 - Bottom Right */}
-            <div className="absolute bottom-4 right-4 w-32 h-24 bg-yellow-100 border-2 border-yellow-300 rounded-lg">
-              <div className="absolute top-0 left-1/2 w-8 h-4 bg-white transform -translate-x-1/2 -translate-y-1"></div>
-              <div className="p-2">
-                <div className="text-xs text-yellow-600 font-medium">Room D</div>
-                <div className="text-xs text-yellow-500">Storage</div>
-              </div>
-            </div>
-            
-            {/* Vertical Corridors */}
-            <div className="absolute left-1/2 top-0 bottom-1/2 w-8 bg-white transform -translate-x-1/2 border-x-2 border-slate-400"></div>
-            <div className="absolute left-1/2 top-1/2 bottom-0 w-8 bg-white transform -translate-x-1/2 border-x-2 border-slate-400"></div>
-            
-            {/* Navigation Points */}
-            <div className="absolute top-1/2 left-8 w-3 h-3 bg-red-500 rounded-full transform -translate-y-1/2 animate-pulse"></div>
-            <div className="absolute top-1/2 right-8 w-3 h-3 bg-red-500 rounded-full transform -translate-y-1/2 animate-pulse"></div>
-            <div className="absolute top-8 left-1/2 w-3 h-3 bg-red-500 rounded-full transform -translate-x-1/2 animate-pulse"></div>
-            <div className="absolute bottom-8 left-1/2 w-3 h-3 bg-red-500 rounded-full transform -translate-x-1/2 animate-pulse"></div>
 
             {/* Robot Position */}
             <div 
@@ -362,26 +379,26 @@ const Controller = () => {
           </div>
         </div>
 
-        {/* Map Legend */}
-        <div className="bg-slate-900 p-4 border-t border-slate-600">
+    {/* Map Legend */}
+    <div className="bg-slate-900 p-4 border-t border-slate-600">
           <div className="flex items-center justify-between">
-            <div className="text-gray-400 text-sm">Map Legend:</div>
+      <div className="text-gray-400 text-sm">Binary Occupancy Grid:</div>
             <div className="flex items-center space-x-6 text-xs">
               <div className="flex items-center space-x-1">
                 <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full"></div>
                 <span className="text-gray-300">Robot</span>
               </div>
               <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-white border border-gray-400"></div>
-                <span className="text-gray-300">Corridor</span>
+        <div className="w-3 h-3 bg-black"></div>
+        <span className="text-gray-300">Obstacles</span>
               </div>
               <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-blue-100 border border-blue-300"></div>
-                <span className="text-gray-300">Rooms</span>
+        <div className="w-3 h-3 bg-white border border-gray-400"></div>
+        <span className="text-gray-300">Free Space</span>
               </div>
               <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="text-gray-300">Nav Points</span>
+        <div className="w-3 h-3 bg-gray-400/50"></div>
+        <span className="text-gray-300">Grid</span>
               </div>
             </div>
           </div>
