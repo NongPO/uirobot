@@ -4,12 +4,6 @@ import React, { useState } from 'react';
 import { 
   FaRobot, 
   FaCube, 
-  FaPen, 
-  FaEye, 
-  FaNetworkWired, 
-  FaBrain, 
-  FaComments, 
-  FaImage,
   FaGamepad,
   FaWrench,
   FaChartLine,
@@ -17,7 +11,7 @@ import {
   FaHeartbeat
 } from 'react-icons/fa';
 
-const Navbar = ({ activeView, setActiveView }) => {
+const Navbar = ({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOpen }) => {
   const [activeItem, setActiveItem] = useState('shapes');
 
   const navItems = [
@@ -26,12 +20,6 @@ const Navbar = ({ activeView, setActiveView }) => {
       icon: FaRobot, 
       color: 'bg-blue-500',
       isLogo: true
-    },
-    { 
-      id: 'network', 
-      icon: FaNetworkWired, 
-      color: 'bg-gray-600',
-      indicator: 'bg-blue-400'
     },
     { 
       id: 'shapes', 
@@ -86,118 +74,100 @@ const Navbar = ({ activeView, setActiveView }) => {
       active: activeView === 'health',
       view: 'health',
       tooltip: 'Health Monitoring'
-    },
-    { 
-      id: 'pen', 
-      icon: FaPen, 
-      color: 'bg-yellow-500',
-      indicator: 'bg-yellow-400',
-      tooltip: 'Design Tools'
-    },
-    { 
-      id: 'vision', 
-      icon: FaEye, 
-      color: 'bg-cyan-500',
-      indicator: 'bg-cyan-400',
-      tooltip: 'Vision System'
-    },
-    { 
-      id: 'ai', 
-      icon: FaBrain, 
-      color: 'bg-purple-500',
-      indicator: 'bg-purple-400'
-    },
-    { 
-      id: 'chat', 
-      icon: FaComments, 
-      color: 'bg-pink-500',
-      indicator: 'bg-pink-400'
-    },
-    { 
-      id: 'active', 
-      icon: FaBrain, 
-      color: 'bg-green-500',
-      indicator: 'bg-green-400',
-      isActive: true
-    },
-    { 
-      id: 'network2', 
-      icon: FaNetworkWired, 
-      color: 'bg-gray-600',
-      indicator: 'bg-blue-400'
-    },
-    { 
-      id: 'image', 
-      icon: FaImage, 
-      color: 'bg-gray-600'
     }
   ];
 
+  const handleNavClick = (item) => {
+    setActiveItem(item.id);
+    if (item.view && setActiveView) {
+      setActiveView(item.view);
+    }
+    // Close mobile menu after selection
+    if (setIsMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
-    <div className="w-16 h-screen bg-gray-900 flex flex-col items-center py-4 space-y-3 border-r border-gray-700">
-      {/* Logo */}
-      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4">
-        A
+    <>
+      {/* Desktop Navbar */}
+      <div className="hidden lg:flex w-16 h-screen bg-gray-900/80 backdrop-blur-sm flex-col items-center py-4 space-y-3 border-r border-gray-600/50">
+        {/* Logo */}
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4 shadow-lg shadow-blue-500/30">
+          A
+        </div>
+
+        {/* Navigation Items */}
+        {navItems.filter(item => !item.isLogo).map((item) => {
+          const IconComponent = item.icon;
+          const isActive = item.active || item.isActive;
+          
+          return (
+            <div key={item.id} className="relative group">
+              <button
+                className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105 border border-gray-600/30 backdrop-blur-sm ${
+                  isActive 
+                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/30 border-blue-400/50' 
+                    : 'bg-gray-800/50 hover:bg-gray-700/70 hover:border-gray-500/50'
+                }`}
+                onClick={() => handleNavClick(item)}
+              >
+                <IconComponent className={`text-lg ${isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'}`} />
+              </button>
+              
+              {/* Tooltip */}
+              {item.tooltip && (
+                <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800/90 backdrop-blur-sm border border-gray-600/50 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-50">
+                  {item.tooltip}
+                </div>
+              )}
+              
+              {/* Status Indicator */}
+              {item.indicator && (
+                <div className="absolute -right-1 -top-1 w-3 h-3 bg-gradient-to-br from-orange-400 to-red-500 rounded-full border-2 border-gray-800/50"></div>
+              )}
+              
+              {/* Active Glow Effect */}
+              {isActive && (
+                <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full"></div>
+              )}
+            </div>
+          );
+        })}
+        
+        {/* Spacer */}
+        <div className="flex-1"></div>
       </div>
 
-      {/* Navigation Items */}
-      {navItems.filter(item => !item.isLogo).map((item) => {
-        const IconComponent = item.icon;
-        const isActive = item.active || item.isActive;
-        
-        return (
-          <div key={item.id} className="relative group">
-            <button
-              className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 ${
-                isActive 
-                  ? `${item.color} shadow-lg` 
-                  : item.isActive 
-                    ? `${item.color} shadow-lg`
-                    : 'bg-gray-800 hover:bg-gray-700'
-              }`}
-              onClick={() => {
-                setActiveItem(item.id);
-                if (item.view && setActiveView) {
-                  setActiveView(item.view);
-                }
-              }}
-            >
-              <IconComponent className="text-white text-lg" />
-            </button>
+      {/* Mobile Bottom Navigation */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-600/50 z-50">
+        <div className="flex justify-around items-center py-2 px-4">
+          {navItems.filter(item => !item.isLogo).map((item) => {
+            const IconComponent = item.icon;
+            const isActive = item.active || item.isActive;
             
-            {/* Tooltip */}
-            {item.tooltip && (
-              <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-50">
-                {item.tooltip}
-              </div>
-            )}
-            
-            {/* Status Indicator */}
-            {item.indicator && (
-              <div className={`absolute -right-1 -top-1 w-3 h-3 ${item.indicator} rounded-full border-2 border-gray-900`}></div>
-            )}
-            
-            {/* Active Glow Effect */}
-            {isActive && (
-              <div className={`absolute inset-0 ${item.color} rounded-xl opacity-30 blur-sm`}></div>
-            )}
-          </div>
-        );
-      })}
-      
-      {/* Spacer */}
-      <div className="flex-1"></div>
-      
-      {/* Bottom Icons */}
-      <div className="space-y-3">
-        <button className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center hover:bg-gray-600 transition-colors">
-          <FaComments className="text-white text-lg" />
-        </button>
-        <button className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center hover:bg-gray-600 transition-colors">
-          <FaImage className="text-white text-lg" />
-        </button>
+            return (
+              <button
+                key={item.id}
+                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300 ${
+                  isActive 
+                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg' 
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                }`}
+                onClick={() => handleNavClick(item)}
+              >
+                <IconComponent className="text-lg mb-1" />
+                <span className="text-xs font-medium">{item.tooltip || item.id}</span>
+                {/* Status Indicator for Mobile */}
+                {item.indicator && (
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-br from-orange-400 to-red-500 rounded-full"></div>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

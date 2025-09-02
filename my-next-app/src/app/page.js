@@ -10,11 +10,13 @@ import Analytics from './components/Analytics';
 import AlertSystem from './components/AlertSystem';
 import HealthMonitoring from './components/HealthMonitoring';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LoginPage from './components/LoginPage';
 
 export default function Home() {
   const [activeView, setActiveView] = useState('dashboard');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -44,14 +46,14 @@ export default function Home() {
       case 'dashboard':
       default:
         return (
-          <div className="flex-1 flex">
+          <div className="flex-1 flex flex-col lg:flex-row">
             {/* Left Section - Dashboard */}
-            <div className="w-1/2 bg-gray-800 overflow-auto">
+            <div className="w-full lg:w-1/2 bg-gray-900/60 backdrop-blur-sm overflow-auto border-b lg:border-b-0 lg:border-r border-gray-600/30 min-h-[50vh] lg:min-h-full">
               <Dashboard />
             </div>
             
             {/* Right Section - Robot Panel */}
-            <div className="w-1/2 bg-gray-700 overflow-auto">
+            <div className="w-full lg:w-1/2 bg-gray-800/60 backdrop-blur-sm overflow-auto min-h-[50vh] lg:min-h-full">
               <RobotPanel />
             </div>
           </div>
@@ -60,13 +62,25 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen bg-gray-900 flex flex-col">
-      <Header onLogout={handleLogout} />
-      <div className="flex flex-1 overflow-hidden">
-        <Navbar activeView={activeView} setActiveView={setActiveView} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 flex flex-col">
+      {/* Background overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-600/10 via-purple-500/5 to-cyan-500/10 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-400/3 via-transparent to-cyan-400/3 pointer-events-none"></div>
+      
+      <Header onLogout={handleLogout} isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      <div className="flex flex-1 relative z-10">
+        <Navbar 
+          activeView={activeView} 
+          setActiveView={setActiveView} 
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
         {/* Main Content Area */}
-        <div className="flex-1 overflow-auto">
-          {renderContent()}
+        <div className="flex-1 flex flex-col">
+          <div className="flex-1 overflow-auto">
+            {renderContent()}
+          </div>
+          <Footer />
         </div>
       </div>
     </div>

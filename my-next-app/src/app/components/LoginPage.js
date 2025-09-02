@@ -9,7 +9,9 @@ import {
   FaEyeSlash,
   FaShieldAlt,
   FaArrowRight,
-  FaSpinner 
+  FaSpinner,
+  FaGithub,
+  FaEnvelope
 } from 'react-icons/fa';
 import { auth } from '../../lib/supabase';
 
@@ -463,10 +465,27 @@ export default function LoginPage({ onLogin }) {
           </div>
 
           {/* Footer */}
-          <div className="text-center mt-8 text-blue-300">
-            <p className="text-sm">
-              © 2025 Matrix Robot System. All rights reserved.
-            </p>
+          <div className="text-center mt-8">
+            <div className="text-blue-300 mb-4">
+              <p className="text-sm mb-2">
+                © 2025 Robot Control System. All rights reserved.
+              </p>
+              <div className="flex justify-center space-x-4 text-xs">
+                <span>Built with Next.js</span>
+                <span>•</span>
+                <span>Powered by Supabase</span>
+                <span>•</span>
+                <span>v1.0.0</span>
+              </div>
+            </div>
+            <div className="flex justify-center space-x-6 pt-4 border-t border-white/10">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FaGithub className="text-lg" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FaEnvelope className="text-lg" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

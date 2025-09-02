@@ -31,7 +31,7 @@ const RobotPanel = () => {
   };
 
   return (
-    <div className="w-full h-full bg-slate-700 p-8 flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="w-full h-full bg-transparent p-8 flex flex-col items-center justify-center relative overflow-hidden">
       {/* Background Glow Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-transparent to-blue-900/20"></div>
       
@@ -45,7 +45,7 @@ const RobotPanel = () => {
       {/* Robot Structure */}
       <div className="relative">
         {/* Robot Head/Top with enhanced styling */}
-        <div className="w-56 h-28 border-4 border-cyan-400 rounded-t-full mx-auto mb-2 bg-slate-800/80 backdrop-blur-sm relative overflow-hidden shadow-xl shadow-cyan-400/20">
+        <div className="w-56 h-28 border-4 border-cyan-400 rounded-t-full mx-auto mb-2 bg-white/10 backdrop-blur-sm relative overflow-hidden shadow-xl shadow-cyan-400/20">
           <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/10 to-transparent"></div>
           <div className="absolute inset-6 border-2 border-cyan-300/60 rounded-t-full">
             {/* Robot Eyes with enhanced glow */}
@@ -61,7 +61,7 @@ const RobotPanel = () => {
         </div>
 
         {/* Robot Body with Levels - Enhanced */}
-        <div className="w-56 h-96 border-4 border-cyan-400 rounded-3xl mx-auto bg-slate-800/80 backdrop-blur-sm relative p-6 shadow-xl shadow-cyan-400/20">
+        <div className="w-56 h-96 border-4 border-cyan-400 rounded-3xl mx-auto bg-white/10 backdrop-blur-sm relative p-6 shadow-xl shadow-cyan-400/20">
           <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/5 to-blue-400/5 rounded-3xl"></div>
           <div className="h-full flex flex-col justify-between relative z-10">
             {robotLevels.map((level) => (
@@ -71,7 +71,7 @@ const RobotPanel = () => {
                 className={`w-full h-20 rounded-xl border-2 transition-all duration-500 hover:scale-105 transform ${
                   level.active 
                     ? 'border-cyan-400 bg-gradient-to-r from-cyan-900/40 to-blue-900/40 shadow-lg shadow-cyan-400/30' 
-                    : 'border-gray-500 bg-slate-600/50 hover:border-gray-400'
+                    : 'border-white/30 bg-white/5 hover:border-white/50'
                 } relative group backdrop-blur-sm`}
               >
                 <div className="flex items-center justify-between px-6 h-full">
@@ -88,17 +88,17 @@ const RobotPanel = () => {
                 </div>
                 
                 {/* Enhanced Progress Bar */}
-                <div className="absolute bottom-3 left-6 right-6 h-1.5 bg-slate-600/50 rounded-full overflow-hidden">
+                <div className="absolute bottom-3 left-6 right-6 h-1.5 bg-white/10 rounded-full overflow-hidden">
                   <div 
                     className={`h-full transition-all duration-1000 ${
-                      level.active ? 'bg-gradient-to-r from-cyan-400 to-blue-400 shadow-sm' : 'bg-gray-500'
+                      level.active ? 'bg-gradient-to-r from-cyan-400 to-blue-400 shadow-sm' : 'bg-white/20'
                     }`}
                     style={{ width: level.active ? '75%' : '25%' }}
                   ></div>
                 </div>
 
                 {/* Enhanced Tooltip */}
-                <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-slate-900/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none border border-cyan-400/30">
+                <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none border border-cyan-400/30">
                   {level.status}
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full border-4 border-transparent border-t-slate-900/90"></div>
                 </div>
@@ -108,7 +108,7 @@ const RobotPanel = () => {
         </div>
 
         {/* Robot Base - Enhanced */}
-        <div className="w-64 h-20 border-4 border-cyan-400 rounded-2xl mx-auto mt-2 bg-slate-800/80 backdrop-blur-sm relative shadow-xl shadow-cyan-400/20">
+        <div className="w-64 h-20 border-4 border-cyan-400 rounded-2xl mx-auto mt-2 bg-white/10 backdrop-blur-sm relative shadow-xl shadow-cyan-400/20">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-blue-400/5 rounded-2xl"></div>
           <div className="flex items-center justify-center h-full space-x-10 relative z-10">
             {/* Enhanced Base Control Buttons */}
@@ -123,7 +123,7 @@ const RobotPanel = () => {
             <button
               onClick={() => toggleBaseStatus('connection')}
               className={`w-16 h-8 rounded-full transition-all duration-500 hover:scale-125 transform ${
-                baseStatus.connection ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-gray-500 shadow-lg shadow-gray-500/50'
+                baseStatus.connection ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-white/20 shadow-lg shadow-white/20'
               } border-2 border-white/20`}
               title="Connection Status"
             ></button>
@@ -165,7 +165,7 @@ const RobotPanel = () => {
               indicator.color === 'cyan' ? 'bg-cyan-500 shadow-lg shadow-cyan-500/50' :
               indicator.color === 'orange' ? 'bg-orange-500 shadow-lg shadow-orange-500/50' :
               indicator.color === 'red' ? 'bg-red-500 shadow-lg shadow-red-500/50' :
-              'bg-gray-500 shadow-lg shadow-gray-500/50'
+              'bg-white/20 shadow-lg shadow-white/20'
             }`}
           ></div>
         ))}

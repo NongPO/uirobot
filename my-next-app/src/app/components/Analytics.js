@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 import { 
   FaChartLine, 
   FaChartBar, 
@@ -97,6 +98,107 @@ export default function Analytics() {
     const h = Math.floor(hours);
     const m = Math.floor((hours - h) * 60);
     return `${h}h ${m}m`;
+  };
+
+  // Export to Excel function
+  const exportToExcel = () => {
+    try {
+      // Prepare data for Excel export
+      const currentDate = new Date().toISOString().split('T')[0];
+      const currentTime = new Date().toLocaleString();
+
+      // Summary Sheet Data
+      const summaryData = [
+        ['Robot Analytics Report'],
+        ['Generated:', currentTime],
+        ['Time Range:', timeRange],
+        [''],
+        ['SUMMARY OVERVIEW'],
+        ['Total Missions:', analyticsData.missions.completed + analyticsData.missions.failed + analyticsData.missions.inProgress],
+        ['Success Rate:', `${analyticsData.missions.successRate}%`],
+        ['System Uptime:', `${analyticsData.system.uptime}%`],
+        ['Total Distance:', `${analyticsData.performance.totalDistance} km`],
+        ['Total Runtime:', formatTime(analyticsData.performance.totalTime)],
+        ['Current Battery:', `${realtimeMetrics.batteryLevel.toFixed(1)}%`],
+        ['Current Temperature:', `${realtimeMetrics.temperature.toFixed(1)}°C`]
+      ];
+
+      // Performance Metrics Sheet Data
+      const performanceData = [
+        ['Metric', 'Value', 'Unit', 'Status'],
+        ['Total Distance', analyticsData.performance.totalDistance, 'km', 'Normal'],
+        ['Total Runtime', analyticsData.performance.totalTime, 'hours', 'Normal'],
+        ['Average Speed', analyticsData.performance.avgSpeed, 'm/s', 'Normal'],
+        ['Efficiency', analyticsData.performance.efficiency, '%', analyticsData.performance.efficiency >= 80 ? 'Good' : 'Warning'],
+        ['Battery Level', realtimeMetrics.batteryLevel.toFixed(1), '%', realtimeMetrics.batteryLevel >= 20 ? 'Good' : 'Low'],
+        ['Temperature', realtimeMetrics.temperature.toFixed(1), '°C', Math.abs(realtimeMetrics.temperature - 40) <= 10 ? 'Normal' : 'Warning'],
+        ['Current Speed', realtimeMetrics.speed.toFixed(1), 'm/s', 'Real-time'],
+        ['Signal Strength', realtimeMetrics.signalStrength.toFixed(0), '%', realtimeMetrics.signalStrength >= 70 ? 'Strong' : 'Weak']
+      ];
+
+      // Mission Statistics Sheet Data
+      const missionData = [
+        ['Mission Type', 'Count', 'Percentage', 'Status'],
+        ['Completed', analyticsData.missions.completed, `${((analyticsData.missions.completed / (analyticsData.missions.completed + analyticsData.missions.failed + analyticsData.missions.inProgress)) * 100).toFixed(1)}%`, 'Success'],
+        ['Failed', analyticsData.missions.failed, `${((analyticsData.missions.failed / (analyticsData.missions.completed + analyticsData.missions.failed + analyticsData.missions.inProgress)) * 100).toFixed(1)}%`, 'Failed'],
+        ['In Progress', analyticsData.missions.inProgress, `${((analyticsData.missions.inProgress / (analyticsData.missions.completed + analyticsData.missions.failed + analyticsData.missions.inProgress)) * 100).toFixed(1)}%`, 'Active'],
+        ['Overall Success Rate', '', `${analyticsData.missions.successRate}%`, analyticsData.missions.successRate >= 90 ? 'Excellent' : analyticsData.missions.successRate >= 80 ? 'Good' : 'Needs Improvement']
+      ];
+
+      // System Performance Sheet Data
+      const systemData = [
+        ['System Component', 'Current Value', 'Unit', 'Status', 'Threshold'],
+        ['Uptime', analyticsData.system.uptime, '%', analyticsData.system.uptime >= 95 ? 'Excellent' : 'Good', '95%'],
+        ['CPU Usage', analyticsData.system.cpuUsage, '%', analyticsData.system.cpuUsage <= 70 ? 'Normal' : 'High', '70%'],
+        ['Memory Usage', analyticsData.system.memoryUsage, '%', analyticsData.system.memoryUsage <= 80 ? 'Normal' : 'High', '80%'],
+        ['Network Latency', analyticsData.system.networkLatency, 'ms', analyticsData.system.networkLatency <= 20 ? 'Good' : 'Slow', '20ms']
+      ];
+
+      // Sensor Data Sheet
+      const sensorData = [
+        ['Sensor Type', 'Current Reading', 'Unit', 'Status', 'Expected Range'],
+        ['Camera Frame Rate', analyticsData.sensors.cameraFrameRate, 'FPS', 'Normal', '25-60 FPS'],
+        ['LiDAR Points', analyticsData.sensors.lidarPoints.toLocaleString(), 'points', 'Normal', '100K-200K'],
+        ['IMU Frequency', analyticsData.sensors.imuFrequency, 'Hz', 'Normal', '50-200 Hz'],
+        ['GPS Accuracy', analyticsData.sensors.gpsAccuracy, 'm', analyticsData.sensors.gpsAccuracy <= 3 ? 'Good' : 'Poor', '≤3m']
+      ];
+
+      // Create workbook and worksheets
+      const wb = XLSX.utils.book_new();
+
+      // Add Summary sheet
+      const ws_summary = XLSX.utils.aoa_to_sheet(summaryData);
+      XLSX.utils.book_append_sheet(wb, ws_summary, 'Summary');
+
+      // Add Performance sheet
+      const ws_performance = XLSX.utils.aoa_to_sheet(performanceData);
+      XLSX.utils.book_append_sheet(wb, ws_performance, 'Performance');
+
+      // Add Mission Statistics sheet
+      const ws_missions = XLSX.utils.aoa_to_sheet(missionData);
+      XLSX.utils.book_append_sheet(wb, ws_missions, 'Missions');
+
+      // Add System Performance sheet
+      const ws_system = XLSX.utils.aoa_to_sheet(systemData);
+      XLSX.utils.book_append_sheet(wb, ws_system, 'System');
+
+      // Add Sensor Data sheet
+      const ws_sensors = XLSX.utils.aoa_to_sheet(sensorData);
+      XLSX.utils.book_append_sheet(wb, ws_sensors, 'Sensors');
+
+      // Generate filename with timestamp
+      const fileName = `Robot-Analytics-${currentDate}-${new Date().getHours()}${new Date().getMinutes()}.xlsx`;
+      
+      // Write file
+      XLSX.writeFile(wb, fileName);
+      
+      // Success feedback (optional)
+      console.log(`Excel file exported successfully: ${fileName}`);
+      
+    } catch (error) {
+      console.error('Error exporting to Excel:', error);
+      alert('เกิดข้อผิดพลาดในการ Export ไฟล์ Excel');
+    }
   };
 
   return (
@@ -342,9 +444,12 @@ export default function Analytics() {
 
         {/* Export Data Button */}
         <div className="mt-8 flex justify-end">
-          <button className="flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200">
+          <button 
+            onClick={exportToExcel}
+            className="flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
             <FaDownload className="mr-2" />
-            Export Analytics Data
+            Export Analytics Data to Excel
           </button>
         </div>
       </div>

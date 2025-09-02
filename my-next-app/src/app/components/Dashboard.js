@@ -147,11 +147,11 @@ const Dashboard = () => {
     return path;
   };
   return (
-    <div className="w-full bg-slate-800 p-6 space-y-6">
+    <div className="w-full bg-transparent p-6 space-y-6">
       {/* Top Section - RoboDoc and Vision Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* RoboDoc Card */}
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
           <div className="flex items-start space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
               <FaRobot className="text-white text-xl" />
@@ -165,7 +165,7 @@ const Dashboard = () => {
         </div>
 
         {/* Vision Card */}
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50 hover:border-cyan-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
           <div className="flex items-start space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
               <FaWifi className="text-white text-xl" />
@@ -174,7 +174,7 @@ const Dashboard = () => {
               <h3 className="text-white text-xl font-bold mb-3">Network Status</h3>
               <div>
                 <p className="text-gray-300 text-sm mb-2 font-medium">Connection Quality</p>
-                <div className="w-full bg-gray-600/50 rounded-full h-3 overflow-hidden">
+                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
                   <div 
                     className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full transition-all duration-1000 shadow-sm" 
                     style={{width: '88%'}}
@@ -193,7 +193,7 @@ const Dashboard = () => {
         {/* System Components Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {/* Motor Control Card */}
-          <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                 <FaCogs className="text-white text-xl" />
@@ -219,7 +219,7 @@ const Dashboard = () => {
           </div>
 
           {/* Navigation Card */}
-          <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50 hover:border-purple-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-purple-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                 <FaRoute className="text-white text-xl" />
@@ -235,7 +235,7 @@ const Dashboard = () => {
                     <span className="text-gray-400 text-sm">Progress</span>
                     <span className="text-green-400 text-sm font-medium">67%</span>
                   </div>
-                  <div className="w-full bg-gray-600/50 rounded-full h-2">
+                  <div className="w-full bg-white/10 rounded-full h-2">
                     <div 
                       className="bg-gradient-to-r from-purple-500 to-purple-400 h-2 rounded-full transition-all duration-1000" 
                       style={{width: '67%'}}
@@ -248,7 +248,7 @@ const Dashboard = () => {
         </div>
 
         {/* Security Status Card */}
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-slate-600/50 hover:border-red-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 hover:border-red-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
           <div className="flex items-start space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
               <FaShieldAlt className="text-white text-xl" />
@@ -280,29 +280,29 @@ const Dashboard = () => {
 
       {/* Robot Statistics Section */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 text-center border border-slate-600/50 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
           <h4 className="text-white text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">2.4</h4>
           <p className="text-gray-400 text-xs uppercase tracking-wide font-semibold mt-2">Hours Uptime</p>
         </div>
         
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 text-center border border-slate-600/50 hover:border-green-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 hover:border-green-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
           <h4 className="text-white text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">15.7</h4>
           <p className="text-gray-400 text-xs uppercase tracking-wide font-semibold mt-2">Distance (km)</p>
         </div>
         
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 text-center border border-slate-600/50 hover:border-purple-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 hover:border-purple-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
           <h4 className="text-white text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">23</h4>
           <p className="text-gray-400 text-xs uppercase tracking-wide font-semibold mt-2">Tasks Completed</p>
         </div>
         
-        <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 text-center border border-slate-600/50 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20 hover:border-orange-400/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
           <h4 className="text-white text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">02</h4>
           <p className="text-gray-400 text-xs uppercase tracking-wide font-semibold mt-2">Active Alerts</p>
         </div>
       </div>
 
       {/* Network Performance Chart */}
-      <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/50 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-white text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Network Performance Monitor
