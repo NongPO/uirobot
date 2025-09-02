@@ -10,10 +10,11 @@ import {
   FaTachometerAlt,
   FaWifi,
   FaBatteryFull,
-  FaClock
+  FaClock,
+  FaSignOutAlt
 } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({ onLogout }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('dashboard');
   const [notifications] = useState(3);
@@ -147,16 +148,27 @@ const Header = () => {
             </div>
 
             {/* User Profile */}
-            <div className="flex items-center space-x-3 bg-slate-800 px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400/50 transition-all duration-300 cursor-pointer group">
-              <div className="text-right">
-                <p className="text-white text-sm font-medium group-hover:text-cyan-400 transition-colors">
-                  Dr. Smith
-                </p>
-                <p className="text-gray-400 text-xs">Administrator</p>
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 bg-slate-800 px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-400/50 transition-all duration-300 cursor-pointer group">
+                <div className="text-right">
+                  <p className="text-white text-sm font-medium group-hover:text-cyan-400 transition-colors">
+                    Dr. Smith
+                  </p>
+                  <p className="text-gray-400 text-xs">Administrator</p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg ring-2 ring-purple-400/20">
+                  <span className="text-white font-bold">N</span>
+                </div>
               </div>
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg ring-2 ring-purple-400/20">
-                <span className="text-white font-bold">N</span>
-              </div>
+              
+              {/* Logout Button */}
+              <button
+                onClick={onLogout}
+                className="flex items-center justify-center w-10 h-10 bg-red-600 hover:bg-red-700 rounded-lg border border-red-500 hover:border-red-400 transition-all duration-300 group"
+                title="ออกจากระบบ"
+              >
+                <FaSignOutAlt className="text-white text-sm group-hover:scale-110 transition-transform" />
+              </button>
             </div>
           </div>
         </div>

@@ -10,9 +10,24 @@ import Analytics from './components/Analytics';
 import AlertSystem from './components/AlertSystem';
 import HealthMonitoring from './components/HealthMonitoring';
 import Header from './components/Header';
+import LoginPage from './components/LoginPage';
 
 export default function Home() {
   const [activeView, setActiveView] = useState('dashboard');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  // If not logged in, show login page
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   const renderContent = () => {
     switch(activeView) {
@@ -46,7 +61,7 @@ export default function Home() {
 
   return (
     <div className="h-screen bg-gray-900 flex flex-col">
-      <Header />
+      <Header onLogout={handleLogout} />
       <div className="flex flex-1 overflow-hidden">
         <Navbar activeView={activeView} setActiveView={setActiveView} />
         {/* Main Content Area */}
