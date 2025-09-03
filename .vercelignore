@@ -1,0 +1,28 @@
+# Vercel ignore file
+.env.local
+.env
+node_modules
+.next
+.git
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local development
+.turbo
+.vercel
+
+# Testing
+coverage
+.nyc_output
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
