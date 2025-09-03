@@ -90,10 +90,10 @@ const Navbar = ({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
 
   return (
     <>
-      {/* Desktop Navbar */}
-      <div className="hidden lg:flex w-16 h-screen bg-gray-900/80 backdrop-blur-sm flex-col items-center py-4 space-y-3 border-r border-gray-600/50">
+      {/* Desktop & Tablet Navbar */}
+      <div className="hidden md:flex w-16 lg:w-16 xl:w-20 h-screen bg-gray-900/80 backdrop-blur-sm flex-col items-center py-4 space-y-3 border-r border-gray-600/50">
         {/* Logo */}
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mb-4 shadow-lg shadow-blue-500/30">
+        <div className="w-10 lg:w-12 xl:w-14 h-10 lg:h-12 xl:h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg lg:text-xl xl:text-2xl mb-4 shadow-lg shadow-blue-500/30">
           A
         </div>
 
@@ -105,14 +105,14 @@ const Navbar = ({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
           return (
             <div key={item.id} className="relative group">
               <button
-                className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105 border border-gray-600/30 backdrop-blur-sm ${
+                className={`w-10 lg:w-12 xl:w-14 h-10 lg:h-12 xl:h-14 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105 border border-gray-600/30 backdrop-blur-sm ${
                   isActive 
                     ? 'bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg shadow-blue-500/30 border-blue-400/50' 
                     : 'bg-gray-800/50 hover:bg-gray-700/70 hover:border-gray-500/50'
                 }`}
                 onClick={() => handleNavClick(item)}
               >
-                <IconComponent className={`text-lg ${isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'}`} />
+                <IconComponent className={`text-sm lg:text-lg xl:text-xl ${isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'}`} />
               </button>
               
               {/* Tooltip */}
@@ -140,7 +140,7 @@ const Navbar = ({ activeView, setActiveView, isMobileMenuOpen, setIsMobileMenuOp
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-600/50 z-50">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-600/50 z-50">
         <div className="flex justify-around items-center py-2 px-4">
           {navItems.filter(item => !item.isLogo).map((item) => {
             const IconComponent = item.icon;

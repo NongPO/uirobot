@@ -46,14 +46,14 @@ export default function Home() {
       case 'dashboard':
       default:
         return (
-          <div className="flex-1 flex flex-col lg:flex-row">
+          <div className="flex-1 flex flex-col xl:flex-row">
             {/* Left Section - Dashboard */}
-            <div className="w-full lg:w-1/2 bg-gray-900/60 backdrop-blur-sm overflow-auto border-b lg:border-b-0 lg:border-r border-gray-600/30 min-h-[50vh] lg:min-h-full">
+            <div className="w-full xl:w-1/2 bg-gray-900/60 backdrop-blur-sm overflow-auto border-b xl:border-b-0 xl:border-r border-gray-600/30 min-h-[50vh] xl:min-h-full">
               <Dashboard />
             </div>
             
             {/* Right Section - Robot Panel */}
-            <div className="w-full lg:w-1/2 bg-gray-800/60 backdrop-blur-sm overflow-auto min-h-[50vh] lg:min-h-full">
+            <div className="w-full xl:w-1/2 bg-gray-800/60 backdrop-blur-sm overflow-auto min-h-[50vh] xl:min-h-full">
               <RobotPanel />
             </div>
           </div>
@@ -63,6 +63,18 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 flex flex-col">
+      {/* Demo Mode Banner */}
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-3 text-xs sm:text-sm relative z-50">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-4">
+          <div>
+            🚀 <strong>Demo Mode</strong> - Robot Control System Simulation
+          </div>
+          <div className="hidden sm:block opacity-80 text-xs">
+            | ข้อมูลจำลอง: demo@robot.com / demo123456
+          </div>
+        </div>
+      </div>
+      
       {/* Background overlay */}
       <div className="fixed inset-0 bg-gradient-to-br from-blue-600/10 via-purple-500/5 to-cyan-500/10 pointer-events-none"></div>
       <div className="fixed inset-0 bg-gradient-to-br from-blue-400/3 via-transparent to-cyan-400/3 pointer-events-none"></div>

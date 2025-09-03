@@ -147,36 +147,36 @@ const Dashboard = () => {
     return path;
   };
   return (
-    <div className="w-full bg-transparent p-6 space-y-6">
+    <div className="w-full bg-transparent p-3 sm:p-4 lg:p-6 space-y-4 lg:space-y-6">
       {/* Top Section - RoboDoc and Vision Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* RoboDoc Card */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-              <FaRobot className="text-white text-xl" />
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl lg:rounded-2xl p-4 lg:p-6 border border-white/20 hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div className="flex items-start space-x-3 lg:space-x-4">
+            <div className="w-10 lg:w-12 h-10 lg:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg lg:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+              <FaRobot className="text-white text-lg lg:text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-white text-xl font-bold mb-1">RoboDoc</h3>
-              <p className="text-blue-400 text-sm mb-1 font-medium">Floor 3rd, Physiotherapy department</p>
+              <h3 className="text-white text-lg lg:text-xl font-bold mb-1">RoboDoc</h3>
+              <p className="text-blue-400 text-xs lg:text-sm mb-1 font-medium">Floor 3rd, Physiotherapy department</p>
               <p className="text-gray-400 text-xs">ID 12345</p>
             </div>
           </div>
         </div>
 
         {/* Vision Card */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
-          <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-              <FaWifi className="text-white text-xl" />
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl lg:rounded-2xl p-4 lg:p-6 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div className="flex items-start space-x-3 lg:space-x-4">
+            <div className="w-10 lg:w-12 h-10 lg:h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg lg:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+              <FaWifi className="text-white text-lg lg:text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-white text-xl font-bold mb-3">Network Status</h3>
+              <h3 className="text-white text-lg lg:text-xl font-bold mb-2 lg:mb-3">Network Status</h3>
               <div>
-                <p className="text-gray-300 text-sm mb-2 font-medium">Connection Quality</p>
-                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                <p className="text-gray-300 text-xs lg:text-sm mb-2 font-medium">Connection Quality</p>
+                <div className="w-full bg-white/10 rounded-full h-2 lg:h-3 overflow-hidden">
                   <div 
-                    className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full transition-all duration-1000 shadow-sm" 
+                    className="bg-gradient-to-r from-green-500 to-green-400 h-2 lg:h-3 rounded-full transition-all duration-1000 shadow-sm" 
                     style={{width: '88%'}}
                   ></div>
                 </div>

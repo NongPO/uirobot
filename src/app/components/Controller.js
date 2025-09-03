@@ -184,34 +184,34 @@ const Controller = () => {
   }, []);
 
   return (
-    <div className="h-full w-full flex bg-slate-600 min-h-0 overflow-hidden">
+    <div className="h-full w-full flex flex-col lg:flex-row bg-slate-600 min-h-0 overflow-hidden">
       {/* Left Panel - Controls */}
-      <div className="w-96 bg-slate-800 border-r border-slate-600 flex flex-col">
+      <div className="w-full lg:w-96 bg-slate-800 border-r border-slate-600 flex flex-col min-h-0">
         {/* Header */}
-        <div className="bg-slate-900 p-6 border-b border-slate-600">
-          <div className="flex items-center space-x-3 mb-4">
-            <FaGamepad className="text-cyan-400 text-2xl" />
-            <h2 className="text-2xl font-bold text-white">Robot Controller</h2>
+        <div className="bg-slate-900 p-4 md:p-5 lg:p-6 border-b border-slate-600">
+          <div className="flex items-center space-x-3 mb-3 md:mb-4">
+            <FaGamepad className="text-cyan-400 text-xl md:text-2xl" />
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-white">Robot Controller</h2>
           </div>
           
           {/* Robot Status */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-700 rounded-lg p-3">
-              <div className="text-gray-400 text-sm mb-1">Battery</div>
-              <div className="text-green-400 font-bold text-lg">{robotStatus.battery}%</div>
-              <div className="w-full bg-gray-600 rounded-full h-2 mt-1">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-3 md:gap-4">
+            <div className="bg-slate-700 rounded-lg p-2 md:p-3">
+              <div className="text-gray-400 text-xs md:text-sm mb-1">Battery</div>
+              <div className="text-green-400 font-bold text-sm md:text-lg">{robotStatus.battery}%</div>
+              <div className="w-full bg-gray-600 rounded-full h-1.5 md:h-2 mt-1">
                 <div 
-                  className="bg-green-400 h-2 rounded-full transition-all duration-300"
+                  className="bg-green-400 h-1.5 md:h-2 rounded-full transition-all duration-300"
                   style={{ width: `${robotStatus.battery}%` }}
                 ></div>
               </div>
             </div>
-            <div className="bg-slate-700 rounded-lg p-3">
-              <div className="text-gray-400 text-sm mb-1">WiFi Signal</div>
-              <div className="text-blue-400 font-bold text-lg">{robotStatus.wifi}%</div>
-              <div className="w-full bg-gray-600 rounded-full h-2 mt-1">
+            <div className="bg-slate-700 rounded-lg p-2 md:p-3">
+              <div className="text-gray-400 text-xs md:text-sm mb-1">WiFi Signal</div>
+              <div className="text-blue-400 font-bold text-sm md:text-lg">{robotStatus.wifi}%</div>
+              <div className="w-full bg-gray-600 rounded-full h-1.5 md:h-2 mt-1">
                 <div 
-                  className="bg-blue-400 h-2 rounded-full transition-all duration-300"
+                  className="bg-blue-400 h-1.5 md:h-2 rounded-full transition-all duration-300"
                   style={{ width: `${robotStatus.wifi}%` }}
                 ></div>
               </div>
@@ -220,72 +220,72 @@ const Controller = () => {
         </div>
 
         {/* Manual Control */}
-        <div className="p-6 border-b border-slate-600">
-          <h3 className="text-lg font-semibold text-white mb-4">Manual Control</h3>
-          <div className="flex space-x-2">
-            <button className="flex items-center space-x-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105">
-              <FaPlay />
+        <div className="p-4 md:p-5 lg:p-6 border-b border-slate-600">
+          <h3 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">Manual Control</h3>
+          <div className="flex flex-wrap gap-2">
+            <button className="flex items-center space-x-1 md:space-x-2 bg-green-600 hover:bg-green-500 text-white px-2 md:px-3 lg:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-200 hover:scale-105 text-sm md:text-base">
+              <FaPlay className="text-xs md:text-sm" />
               <span>Start</span>
             </button>
-            <button className="flex items-center space-x-2 bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105">
-              <FaStop />
+            <button className="flex items-center space-x-1 md:space-x-2 bg-red-600 hover:bg-red-500 text-white px-2 md:px-3 lg:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-200 hover:scale-105 text-sm md:text-base">
+              <FaStop className="text-xs md:text-sm" />
               <span>Stop</span>
             </button>
-            <button className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105">
-              <FaHome />
+            <button className="flex items-center space-x-1 md:space-x-2 bg-purple-600 hover:bg-purple-500 text-white px-2 md:px-3 lg:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-200 hover:scale-105 text-sm md:text-base">
+              <FaHome className="text-xs md:text-sm" />
               <span>Home</span>
             </button>
           </div>
         </div>
 
         {/* Robot Status */}
-        <div className="p-6 border-b border-slate-600">
-          <h3 className="text-lg font-semibold text-white mb-4">Robot Status</h3>
-          <div className="space-y-3">
+        <div className="p-4 md:p-5 lg:p-6 border-b border-slate-600">
+          <h3 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">Robot Status</h3>
+          <div className="space-y-2 md:space-y-3">
             <div className="flex justify-between">
-              <span className="text-gray-400">Status:</span>
-              <span className={`font-medium ${robotStatus.isMoving ? 'text-green-400' : 'text-gray-400'}`}>
+              <span className="text-gray-400 text-sm md:text-base">Status:</span>
+              <span className={`font-medium text-sm md:text-base ${robotStatus.isMoving ? 'text-green-400' : 'text-gray-400'}`}>
                 {robotStatus.isMoving ? 'Moving' : 'Idle'}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Speed:</span>
-              <span className="text-cyan-400 font-bold">{robotStatus.speed}%</span>
+              <span className="text-gray-400 text-sm md:text-base">Speed:</span>
+              <span className="text-cyan-400 font-bold text-sm md:text-base">{robotStatus.speed}%</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Direction:</span>
-              <span className="text-cyan-400">{robotStatus.direction || 'N/A'}</span>
+              <span className="text-gray-400 text-sm md:text-base">Direction:</span>
+              <span className="text-cyan-400 text-sm md:text-base">{robotStatus.direction || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Temperature:</span>
-              <span className="text-orange-400">{robotStatus.temperature}°C</span>
+              <span className="text-gray-400 text-sm md:text-base">Temperature:</span>
+              <span className="text-orange-400 text-sm md:text-base">{robotStatus.temperature}°C</span>
             </div>
           </div>
         </div>
 
         {/* Joystick Control */}
-        <div className="flex-1 p-6">
-          <h3 className="text-lg font-semibold text-white mb-4 text-center">Joystick Control</h3>
+        <div className="flex-1 p-4 md:p-5 lg:p-6 min-h-0">
+          <h3 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4 text-center">Joystick Control</h3>
           
           {/* Joystick Container */}
-          <div className="flex justify-center items-center h-64">
+          <div className="flex justify-center items-center h-48 md:h-56 lg:h-64">
             <div 
               ref={containerRef}
-              className="relative w-48 h-48 bg-slate-600 rounded-full border-4 border-slate-500 cursor-pointer shadow-2xl"
+              className="relative w-36 md:w-44 lg:w-48 h-36 md:h-44 lg:h-48 bg-slate-600 rounded-full border-2 md:border-3 lg:border-4 border-slate-500 cursor-pointer shadow-2xl"
               onMouseDown={handleJoystickStart}
             >
               {/* Joystick Base Rings */}
-              <div className="absolute inset-4 border-2 border-slate-400/30 rounded-full"></div>
-              <div className="absolute inset-8 border-2 border-slate-400/20 rounded-full"></div>
+              <div className="absolute inset-3 md:inset-4 border-1 md:border-2 border-slate-400/30 rounded-full"></div>
+              <div className="absolute inset-6 md:inset-8 border-1 md:border-2 border-slate-400/20 rounded-full"></div>
               
               {/* Center Cross */}
-              <div className="absolute top-1/2 left-1/2 w-0.5 h-8 bg-slate-400/30 transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute top-1/2 left-1/2 w-8 h-0.5 bg-slate-400/30 transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute top-1/2 left-1/2 w-0.5 h-6 md:h-8 bg-slate-400/30 transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute top-1/2 left-1/2 w-6 md:w-8 h-0.5 bg-slate-400/30 transform -translate-x-1/2 -translate-y-1/2"></div>
               
               {/* Joystick Handle */}
               <div
                 ref={joystickRef}
-                className="absolute w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full border-3 border-white shadow-2xl transform -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+                className="absolute w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full border-2 md:border-3 border-white shadow-2xl transform -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
                 style={{
                   left: `calc(50% + ${joystickPosition.x}px)`,
                   top: `calc(50% + ${joystickPosition.y}px)`,
@@ -293,31 +293,31 @@ const Controller = () => {
                   transition: isDragging ? 'none' : 'all 0.2s ease-out'
                 }}
               >
-                <div className="absolute inset-1.5 bg-white/20 rounded-full"></div>
+                <div className="absolute inset-1 md:inset-1.5 bg-white/20 rounded-full"></div>
               </div>
 
               {/* Center Dot */}
-              <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-slate-400 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+              <div className="absolute top-1/2 left-1/2 w-1.5 md:w-2 h-1.5 md:h-2 bg-slate-400 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Right Panel - Map */}
-  <div className="flex-1 bg-slate-800 flex flex-col min-w-0 min-h-0">
+      <div className="flex-1 bg-slate-800 flex flex-col min-w-0 min-h-0">
         {/* Map Header */}
-        <div className="bg-slate-900 p-6 border-b border-slate-600">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-white">Map Simulator</h3>
-            <div className="flex items-center space-x-4">
+        <div className="bg-slate-900 p-4 md:p-5 lg:p-6 border-b border-slate-600">
+          <div className="flex flex-col md:flex-row md:items-center justify-between space-y-2 md:space-y-0">
+            <h3 className="text-lg md:text-xl font-bold text-white">Map Simulator</h3>
+            <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
               <div className="flex items-center space-x-2">
-                <span className="text-gray-400">Position:</span>
-                <span className="text-white font-mono">
+                <span className="text-gray-400 text-sm md:text-base">Position:</span>
+                <span className="text-white font-mono text-sm md:text-base">
                   X: {Math.round(robotPosition.x)}, Y: {Math.round(robotPosition.y)}
                 </span>
               </div>
-              <button className="flex items-center space-x-2 bg-slate-600 hover:bg-slate-500 text-white px-3 py-1 rounded-lg transition-colors">
-                <FaCog />
+              <button className="flex items-center space-x-2 bg-slate-600 hover:bg-slate-500 text-white px-2 md:px-3 py-1 rounded-lg transition-colors text-sm md:text-base">
+                <FaCog className="text-xs md:text-sm" />
                 <span>Settings</span>
               </button>
             </div>
@@ -325,8 +325,8 @@ const Controller = () => {
         </div>
 
         {/* Map Container */}
-        <div className="flex-1 p-6 min-h-0">
-          <div className="h-full relative bg-white rounded-lg overflow-hidden border-8 border-black">
+        <div className="flex-1 p-3 md:p-4 lg:p-6 min-h-0">
+          <div className="h-full relative bg-white rounded-lg overflow-hidden border-4 md:border-6 lg:border-8 border-black">
             {/* Room walls (black). Doors are gaps between segments */}
             {/* Center vertical wall with door gap at middle */}
             <div className="absolute bg-black" style={{ left: '48%', width: '4%', top: '8%', height: '30%' }}></div>
@@ -353,7 +353,7 @@ const Controller = () => {
 
             {/* Robot Position */}
             <div 
-              className="absolute w-6 h-6 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full border-2 border-white shadow-xl transform -translate-x-1/2 -translate-y-1/2 z-20"
+              className="absolute w-4 md:w-5 lg:w-6 h-4 md:h-5 lg:h-6 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full border-1 md:border-2 border-white shadow-xl transform -translate-x-1/2 -translate-y-1/2 z-20"
               style={{
                 left: `${robotPosition.x}%`,
                 top: `${robotPosition.y}%`,
@@ -363,13 +363,13 @@ const Controller = () => {
             >
               {/* Robot direction indicator */}
               <div className="absolute inset-0.5 bg-white/30 rounded-full"></div>
-              <div className="absolute top-0.5 left-1/2 w-0.5 h-2 bg-white rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute top-0.5 left-1/2 w-0.5 h-1 md:h-1.5 lg:h-2 bg-white rounded-full transform -translate-x-1/2"></div>
             </div>
 
             {/* Robot trail/path */}
             {robotStatus.isMoving && (
               <div 
-                className="absolute w-3 h-3 bg-cyan-300/60 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-ping z-10"
+                className="absolute w-2 md:w-2.5 lg:w-3 h-2 md:h-2.5 lg:h-3 bg-cyan-300/60 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-ping z-10"
                 style={{
                   left: `${robotPosition.x}%`,
                   top: `${robotPosition.y}%`
@@ -379,26 +379,26 @@ const Controller = () => {
           </div>
         </div>
 
-    {/* Map Legend */}
-    <div className="bg-slate-900 p-4 border-t border-slate-600">
-          <div className="flex items-center justify-between">
-      <div className="text-gray-400 text-sm">Binary Occupancy Grid:</div>
-            <div className="flex items-center space-x-6 text-xs">
+        {/* Map Legend */}
+        <div className="bg-slate-900 p-3 md:p-4 border-t border-slate-600">
+          <div className="flex flex-col md:flex-row md:items-center justify-between space-y-2 md:space-y-0">
+            <div className="text-gray-400 text-xs md:text-sm">Binary Occupancy Grid:</div>
+            <div className="flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6 text-xs">
               <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full"></div>
+                <div className="w-2 md:w-3 h-2 md:h-3 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full"></div>
                 <span className="text-gray-300">Robot</span>
               </div>
               <div className="flex items-center space-x-1">
-        <div className="w-3 h-3 bg-black"></div>
-        <span className="text-gray-300">Obstacles</span>
+                <div className="w-2 md:w-3 h-2 md:h-3 bg-black"></div>
+                <span className="text-gray-300">Obstacles</span>
               </div>
               <div className="flex items-center space-x-1">
-        <div className="w-3 h-3 bg-white border border-gray-400"></div>
-        <span className="text-gray-300">Free Space</span>
+                <div className="w-2 md:w-3 h-2 md:h-3 bg-white border border-gray-400"></div>
+                <span className="text-gray-300">Free Space</span>
               </div>
               <div className="flex items-center space-x-1">
-        <div className="w-3 h-3 bg-gray-400/50"></div>
-        <span className="text-gray-300">Grid</span>
+                <div className="w-2 md:w-3 h-2 md:h-3 bg-gray-400/50"></div>
+                <span className="text-gray-300">Grid</span>
               </div>
             </div>
           </div>

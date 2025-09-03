@@ -47,28 +47,28 @@ const Header = ({ onLogout, isMobileMenuOpen, setIsMobileMenuOpen }) => {
 
   return (
     <div className="bg-gray-900/80 backdrop-blur-sm border-b border-gray-600/50 shadow-lg relative z-20">
-      <div className="px-4 lg:px-6 py-3 lg:py-4">
+      <div className="px-3 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4">
         <div className="flex items-center justify-between">
           {/* Mobile Logo */}
-          <div className="flex items-center lg:hidden">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-3">
+          <div className="flex items-center md:hidden">
+            <div className="w-7 sm:w-8 h-7 sm:h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xs sm:text-sm mr-2 sm:mr-3">
               A
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg">RoboDoc</h1>
+              <h1 className="text-white font-bold text-sm sm:text-lg">RoboDoc</h1>
               <p className="text-gray-400 text-xs">AI Storage</p>
             </div>
           </div>
 
-          {/* Desktop Logo and Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* Tablet & Desktop Logo and Navigation */}
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {/* Logo Section */}
             <div className="flex items-center space-x-3">
               <div>
-                <h1 className="text-white font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                <h1 className="text-white font-bold text-lg xl:text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                   RoboDoc System
                 </h1>
-                <p className="text-gray-400 text-sm">AI Storage Management</p>
+                <p className="text-gray-400 text-xs sm:text-sm">AI Storage Management</p>
               </div>
             </div>
             

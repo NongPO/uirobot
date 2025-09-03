@@ -146,7 +146,7 @@ export default function LoginPage({ onLogin }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex">
       {/* Left Section - Carousel */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+      <div className="hidden md:flex md:w-2/5 lg:w-1/2 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-cyan-500/10 to-blue-800/20"></div>
         <div className="absolute inset-0 opacity-30">
@@ -154,17 +154,17 @@ export default function LoginPage({ onLogin }) {
         </div>
         
         {/* Carousel Content */}
-        <div className="relative z-10 flex flex-col justify-center items-center text-center p-12 w-full">
+        <div className="relative z-10 flex flex-col justify-center items-center text-center p-6 lg:p-12 w-full">
           {/* Navigation Arrows */}
           <button 
             onClick={handlePrevSlide}
-            className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
+            className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 w-10 lg:w-12 h-10 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
           >
             ←
           </button>
           <button 
             onClick={handleNextSlide}
-            className="absolute right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
+            className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 w-10 lg:w-12 h-10 lg:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
           >
             →
           </button>
@@ -396,6 +396,32 @@ export default function LoginPage({ onLogin }) {
                   </div>
                 )}
               </button>
+
+              {/* Demo Credentials Info */}
+              {isLogin && (
+                <div className="mt-6 p-4 bg-white/5 border border-blue-400/30 rounded-xl">
+                  <div className="text-center">
+                    <h4 className="text-blue-300 font-semibold mb-2">🚀 Demo Account</h4>
+                    <div className="text-sm text-blue-200 space-y-1">
+                      <p><strong>Email:</strong> demo@robot.com</p>
+                      <p><strong>Password:</strong> demo123456</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail('demo@robot.com')
+                        setPassword('demo123456')
+                      }}
+                      className="mt-3 px-4 py-2 bg-blue-500/30 hover:bg-blue-500/50 text-blue-200 text-xs rounded-lg transition-colors duration-200"
+                    >
+                      เติมข้อมูลอัตโนมัติ
+                    </button>
+                    <p className="text-xs text-blue-300 mt-2 opacity-80">
+                      ใช้ข้อมูลข้างต้นเพื่อทดสอบระบบ
+                    </p>
+                  </div>
+                </div>
+              )}
             </form>
 
             {/* Demo Login Section */}

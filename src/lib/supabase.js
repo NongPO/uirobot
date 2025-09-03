@@ -14,32 +14,63 @@ function isValidUrl(string) {
   }
 }
 
-// Create Supabase client only if we have valid credentials
-let supabase = null
+// Singleton pattern for Supabase client
+let supabaseInstance = null
 let isSupabaseConfigured = false
 
-if (supabaseUrl && 
-    supabaseAnonKey && 
-    supabaseUrl !== 'your-project-url-here' && 
-    supabaseAnonKey !== 'your-anon-key-here' &&
-    isValidUrl(supabaseUrl) &&
-    supabaseUrl.includes('supabase.co')) {
-  try {
-    supabase = createClient(supabaseUrl, supabaseAnonKey)
-    isSupabaseConfigured = true
-    console.log('✅ Supabase configured successfully')
-  } catch (error) {
-    console.warn('⚠️ Supabase configuration failed:', error.message)
-    console.log('📱 Using mock authentication instead')
+function createSupabaseClient() {
+  if (supabaseInstance) {
+    return supabaseInstance
   }
-} else {
-  console.log('📱 Supabase not configured, using mock authentication')
-  console.log('💡 To use real database, update .env.local with your Supabase credentials')
+
+  console.log('🔍 Environment check:', {
+    hasUrl: !!supabaseUrl,
+    hasKey: !!supabaseAnonKey,
+    urlValue: supabaseUrl?.substring(0, 30) + '...',
+    keyLength: supabaseAnonKey?.length
+  })
+
+  if (supabaseUrl && 
+      supabaseAnonKey && 
+      supabaseUrl !== 'your-project-url-here' && 
+      supabaseAnonKey !== 'your-anon-key-here' &&
+      isValidUrl(supabaseUrl) &&
+      supabaseUrl.includes('supabase.co')) {
+    try {
+      supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: false
+        },
+        global: {
+          headers: {
+            'X-Client-Info': 'uirobot@1.0.0'
+          }
+        }
+      })
+      isSupabaseConfigured = true
+      console.log('✅ Supabase configured successfully')
+      console.log('🎯 Demo Mode: Using mock authentication only')
+    } catch (error) {
+      console.warn('⚠️ Supabase configuration failed:', error.message)
+      console.log('📱 Using mock authentication instead')
+    }
+  } else {
+    console.log('📱 Supabase not configured, using mock authentication')
+    console.log('💡 Environment variables missing or invalid')
+    console.log('💡 To use real database, update environment variables')
+  }
+
+  return supabaseInstance
 }
+
+// Create Supabase client
+const supabase = createSupabaseClient()
 
 // Mock authentication for development/demo
 const mockAuth = {
-  // Demo users
+  // Demo users - เพิ่มเติม users สำหรับทดสอบ
   demoUsers: [
     { 
       id: '1', 
@@ -61,6 +92,20 @@ const mockAuth = {
       password: 'user123456',
       name: 'Regular User',
       role: 'user'
+    },
+    { 
+      id: '4', 
+      email: 'test@robot.com', 
+      password: 'test123456',
+      name: 'Test User',
+      role: 'user'
+    },
+    { 
+      id: '5', 
+      email: 'manager@robot.com', 
+      password: 'manager123456',
+      name: 'Manager User',
+      role: 'manager'
     }
   ],
 
@@ -128,38 +173,22 @@ const mockAuth = {
 export const auth = {
   // Sign up new user
   signUp: async (email, password, userData = {}) => {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: userData
-          }
-        })
-        return { data, error }
-      } catch (error) {
-        return { data: null, error }
-      }
-    } else {
-      return await mockAuth.signUp(email, password, userData)
-    }
+    console.log('🎭 Using Mock Registration for Demo')
+    return await mockAuth.signUp(email, password, userData)
   },
 
   // Sign in user
   signIn: async (email, password) => {
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        })
-        return { data, error }
-      } catch (error) {
-        return { data: null, error }
-      }
+    // Use mock authentication as primary method for demo
+    console.log('🎭 Using Mock Authentication for Demo')
+    const mockResult = await mockAuth.signIn(email, password)
+    
+    if (mockResult.data) {
+      console.log('✅ Mock authentication successful')
+      return mockResult
     } else {
-      return await mockAuth.signIn(email, password)
+      console.log('❌ Mock authentication failed')
+      return mockResult
     }
   },
 
