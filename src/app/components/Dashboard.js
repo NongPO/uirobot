@@ -171,55 +171,42 @@ const Dashboard = () => {
     return path;
   };
   return (
-    <div className="w-full bg-transparent p-2 sm:p-4 md:p-5 lg:p-6 xl:p-8 space-y-3 sm:space-y-4 lg:space-y-6 relative min-h-screen">
-      {/* Enhanced Background Elements - Responsive */}
+    <div className="w-full bg-transparent p-4 lg:p-6 space-y-6 relative min-h-screen">
+      {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated Background Orbs - Responsive Sizes */}
-        <div className="absolute top-10 sm:top-16 lg:top-20 left-5 sm:left-8 lg:left-10 w-16 sm:w-24 lg:w-32 h-16 sm:h-24 lg:h-32 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-16 sm:bottom-24 lg:bottom-32 right-8 sm:right-12 lg:right-16 w-20 sm:w-32 lg:w-40 h-20 sm:h-32 lg:h-40 bg-gradient-to-br from-purple-500/8 to-pink-500/8 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/3 sm:top-1/2 left-1/6 sm:left-1/4 w-12 sm:w-18 lg:w-24 h-12 sm:h-18 lg:h-24 bg-gradient-to-br from-green-500/8 to-emerald-500/8 rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        
-        {/* Geometric Shapes - Responsive */}
-        <div className="absolute top-8 sm:top-12 lg:top-16 right-10 sm:right-16 lg:right-20 w-10 sm:w-16 lg:w-20 h-10 sm:h-16 lg:h-20 border border-blue-400/20 rotate-45 animate-spin" style={{animationDuration: '20s'}}></div>
-        <div className="absolute bottom-10 sm:bottom-16 lg:bottom-20 left-10 sm:left-16 lg:left-20 w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 border border-cyan-400/15 rotate-12 animate-spin" style={{animationDuration: '15s', animationDirection: 'reverse'}}></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-32 right-16 w-40 h-40 bg-gradient-to-br from-purple-500/8 to-pink-500/8 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-br from-green-500/8 to-emerald-500/8 rounded-full blur-xl animate-pulse" style={{animationDelay: '2s'}}></div>
       </div>
 
-      {/* Enhanced Top Section - RoboDoc and Vision Cards - Responsive */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 relative z-10">
-        {/* Ultra Enhanced RoboDoc Card - Mobile Optimized */}
-        <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30 hover:border-blue-400/60 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 relative overflow-hidden">
-          {/* Card Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl sm:rounded-2xl lg:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      {/* Top Section - RoboDoc and Network Status */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10">
+        {/* RoboDoc Card */}
+        <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 hover:border-blue-400/60 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
-          {/* Animated Border */}
-          <div className="absolute inset-0 rounded-xl sm:rounded-2xl lg:rounded-3xl bg-gradient-to-r from-blue-400/20 via-transparent to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <div className="relative z-10 flex items-start space-x-3 sm:space-x-4 lg:space-x-6">
+          <div className="relative z-10 flex items-start space-x-4">
             <div className="relative group-hover:scale-110 transition-transform duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl sm:rounded-2xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-              <div className="relative w-12 sm:w-14 lg:w-16 h-12 sm:h-14 lg:h-16 bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-2xl border border-blue-400/50">
-                <FaRobot className="text-white text-lg sm:text-2xl lg:text-3xl drop-shadow-lg" />
-                
-                {/* Pulsing Ring */}
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl border-2 border-blue-400/30 animate-pulse"></div>
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center shadow-2xl border border-blue-400/50">
+                <FaRobot className="text-white text-2xl drop-shadow-lg" />
               </div>
             </div>
+            
             <div className="flex-1 min-w-0">
-              <h3 className="text-white text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent drop-shadow-lg">RoboDoc</h3>
-              <p className="text-blue-300 text-xs sm:text-sm lg:text-base mb-1 sm:mb-2 font-semibold truncate">Floor 3rd, Physiotherapy dept.</p>
+              <h3 className="text-white text-xl font-bold mb-2 bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent drop-shadow-lg">RoboDoc</h3>
+              <p className="text-blue-300 text-sm mb-2 font-semibold">Floor 3rd, Physiotherapy dept.</p>
               <div className="flex items-center space-x-2">
-                <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <p className="text-gray-300 text-xs lg:text-sm truncate">ID 12345 • Online</p>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <p className="text-gray-300 text-sm">ID 12345 • Online</p>
               </div>
               
-              {/* Status Indicators - Responsive */}
-              <div className="mt-2 sm:mt-4 flex flex-wrap gap-2 sm:gap-3">
+              <div className="mt-4 flex flex-wrap gap-3">
                 <div className="flex items-center space-x-1">
-                  <div className="w-2 sm:w-3 h-2 sm:h-3 bg-green-500 rounded-full shadow-lg"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full shadow-lg"></div>
                   <span className="text-green-300 text-xs font-medium">Active</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <div className="w-2 sm:w-3 h-2 sm:h-3 bg-blue-500 rounded-full shadow-lg"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full shadow-lg"></div>
                   <span className="text-blue-300 text-xs font-medium">Connected</span>
                 </div>
               </div>
@@ -227,41 +214,35 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Ultra Enhanced Vision Card - Mobile Optimized */}
-        <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30 hover:border-cyan-400/60 transition-all duration-500 shadow-2xl hover:shadow-cyan-500/20 hover:scale-105 relative overflow-hidden">
-          {/* Card Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-green-500/10 rounded-xl sm:rounded-2xl lg:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        {/* Network Status Card */}
+        <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 hover:border-cyan-400/60 transition-all duration-500 shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-green-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
-          <div className="relative z-10 flex items-start space-x-3 sm:space-x-4 lg:space-x-6">
+          <div className="relative z-10 flex items-start space-x-4">
             <div className="relative group-hover:scale-110 transition-transform duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-green-600 rounded-xl sm:rounded-2xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-              <div className="relative w-12 sm:w-14 lg:w-16 h-12 sm:h-14 lg:h-16 bg-gradient-to-br from-cyan-500 via-teal-600 to-green-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-2xl border border-cyan-400/50">
-                <FaWifi className="text-white text-lg sm:text-2xl lg:text-3xl drop-shadow-lg" />
-                
-                {/* Signal Rings */}
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl border border-cyan-400/40 animate-ping" style={{animationDuration: '2s'}}></div>
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 via-teal-600 to-green-600 rounded-2xl flex items-center justify-center shadow-2xl border border-cyan-400/50">
+                <FaWifi className="text-white text-2xl drop-shadow-lg" />
               </div>
             </div>
+            
             <div className="flex-1 min-w-0">
-              <h3 className="text-white text-lg sm:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-white via-cyan-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg">Network Status</h3>
+              <h3 className="text-white text-xl font-bold mb-3 bg-gradient-to-r from-white via-cyan-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg">Network Status</h3>
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <p className="text-gray-300 text-xs sm:text-sm lg:text-base font-semibold">Connection Quality</p>
-                  <span className="text-green-300 text-xs sm:text-sm font-bold">88%</span>
+                  <p className="text-gray-300 text-sm font-semibold">Connection Quality</p>
+                  <span className="text-green-300 text-sm font-bold">88%</span>
                 </div>
-                <div className="relative w-full bg-white/10 rounded-full h-2 sm:h-3 lg:h-4 overflow-hidden border border-white/20">
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-green-400/20 rounded-full"></div>
+                <div className="relative w-full bg-white/10 rounded-full h-3 overflow-hidden border border-white/20">
                   <div 
-                    className="bg-gradient-to-r from-green-500 via-emerald-500 to-green-400 h-2 sm:h-3 lg:h-4 rounded-full transition-all duration-1000 shadow-lg relative overflow-hidden" 
+                    className="bg-gradient-to-r from-green-500 via-emerald-500 to-green-400 h-3 rounded-full transition-all duration-1000 shadow-lg relative overflow-hidden" 
                     style={{width: '88%'}}
                   >
-                    {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] animate-pulse" style={{animationDuration: '2s'}}></div>
                   </div>
                 </div>
                 
-                {/* Additional Network Info - Responsive Grid */}
-                <div className="mt-2 sm:mt-3 grid grid-cols-2 gap-2 sm:gap-3 text-xs">
+                {/* Additional Network Info */}
+                <div className="mt-3 grid grid-cols-2 gap-3 text-xs">
                   <div className="flex justify-between">
                     <span className="text-gray-400">Ping:</span>
                     <span className="text-green-300 font-medium">12ms</span>
@@ -277,16 +258,16 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Enhanced Robot System Status Section - Mobile Responsive */}
+      {/* Robot System Status Section */}
       <div className="relative z-10">
-        <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
-          <div className="w-0.5 sm:w-1 h-6 sm:h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></div>
-          <p className="text-white text-sm sm:text-lg font-bold uppercase tracking-wider bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Robot System Status</p>
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></div>
+          <p className="text-white text-lg font-bold uppercase tracking-wider bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Robot System Status</p>
           <div className="flex-1 h-px bg-gradient-to-r from-blue-500/50 via-transparent to-transparent"></div>
         </div>
         
-        {/* Enhanced System Components Cards - Responsive Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        {/* System Components Cards */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
           {/* Ultra Enhanced Motor Control Card - Mobile Optimized */}
           <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30 hover:border-orange-400/60 transition-all duration-500 shadow-2xl hover:shadow-orange-500/20 hover:scale-105 relative overflow-hidden">
             {/* Animated Background */}
@@ -422,21 +403,18 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Enhanced Robot Statistics Section - Mobile Responsive */}
-      <div className="relative z-10 mb-6 sm:mb-8">
-        <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
-          <div className="w-0.5 sm:w-1 h-6 sm:h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></div>
-          <p className="text-white text-sm sm:text-lg font-bold uppercase tracking-wider bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Robot Statistics</p>
+      {/* Robot Statistics Section */}
+      <div className="relative z-10 mb-8">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></div>
+          <p className="text-white text-lg font-bold uppercase tracking-wider bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Robot Statistics</p>
           <div className="flex-1 h-px bg-gradient-to-r from-purple-500/50 via-transparent to-transparent"></div>
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          {/* Ultra Enhanced Uptime Card - Mobile Optimized */}
-          <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 border border-white/30 hover:border-blue-400/60 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 hover:scale-105 relative overflow-hidden">
-            {/* Animated Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
-            {/* Floating Elements - Responsive */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Uptime Card */}
+          <div className="group bg-gradient-to-br from-white/15 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-4 border border-white/30 hover:border-blue-400/60 transition-all duration-500 shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="absolute top-1 sm:top-2 right-2 sm:right-3 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-400/60 rounded-full animate-pulse"></div>
             <div className="absolute bottom-2 sm:bottom-3 left-1 sm:left-2 w-1 h-1 bg-cyan-400/60 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
             
