@@ -106,14 +106,6 @@ export default function LoginPage({ onLogin }) {
     }
   };
 
-  const handlePrevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + robotFeatures.length) % robotFeatures.length);
-  };
-
-  const handleNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % robotFeatures.length);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex">
       {/* Left Section - Carousel */}
@@ -126,19 +118,6 @@ export default function LoginPage({ onLogin }) {
         
         {/* Carousel Content */}
         <div className="relative z-10 flex flex-col justify-center items-center text-center p-12 w-full">
-          {/* Navigation Arrows */}
-          <button 
-            onClick={handlePrevSlide}
-            className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
-          >
-            ←
-          </button>
-          <button 
-            onClick={handleNextSlide}
-            className="absolute right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
-          >
-            →
-          </button>
 
           {/* Robot Icon */}
           <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-2xl flex items-center justify-center mb-8 shadow-2xl">
@@ -177,26 +156,43 @@ export default function LoginPage({ onLogin }) {
             </p>
           </div>
 
-          {/* Language Flags */}
-          <div className="flex space-x-4 mb-8">
-            <div className="w-8 h-6 bg-gradient-to-r from-red-500 via-white to-red-500 rounded shadow-lg"></div>
-            <div className="w-8 h-6 bg-gradient-to-r from-red-500 via-white to-blue-500 rounded shadow-lg"></div>
-            <div className="w-8 h-6 bg-gradient-to-r from-red-500 via-white to-red-500 rounded shadow-lg"></div>
-          </div>
-
-          {/* Carousel Indicators */}
-          <div className="flex space-x-3">
-            {robotFeatures.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'bg-blue-400 w-8'
-                    : 'bg-white/30 hover:bg-white/50 w-2'
-                }`}
-              />
-            ))}
+          {/* Language Selection */}
+          <div className="flex space-x-8 mb-8">
+            {/* Thai */}
+            <button className="flex flex-col items-center space-y-2 group transition-all duration-300 hover:scale-110">
+              <div className="w-12 h-8 rounded-md overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/30">
+                <img 
+                  src="/flags/thailand.svg" 
+                  alt="Thailand Flag" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-xs text-white/80 group-hover:text-white font-medium">ไทย</span>
+            </button>
+            
+            {/* English */}
+            <button className="flex flex-col items-center space-y-2 group transition-all duration-300 hover:scale-110">
+              <div className="w-12 h-8 rounded-md overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/30">
+                <img 
+                  src="/flags/usa.svg" 
+                  alt="USA Flag" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-xs text-white/80 group-hover:text-white font-medium">English</span>
+            </button>
+            
+            {/* Japanese */}
+            <button className="flex flex-col items-center space-y-2 group transition-all duration-300 hover:scale-110">
+              <div className="w-12 h-8 rounded-md overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 border border-white/30">
+                <img 
+                  src="/flags/japan.svg" 
+                  alt="Japan Flag" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-xs text-white/80 group-hover:text-white font-medium">日本語</span>
+            </button>
           </div>
         </div>
       </div>
